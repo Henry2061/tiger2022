@@ -1,0 +1,68 @@
+note: if(==) convert type only for compare in if but not in statement
+
+print regular triangle stars
+
+assignment 1: average from 1 to 100
+
+assignment 2: sum of even between 1-100
+
+assignment 3: sum of multiples of 7 within 100
+
+assignment 4: 4 rows by 5 columns stars
+
+assignment 5: 4 rows regular triangle stars
+
+assignment 6: 9x9 multiplication table
+
+assignment 7: receive user name and password
+
+assignment 8: sum within 100
+
+ATM
+
+bubble sort
+
+bubble sort [debug error]
+
+simple calculator
+
+find the largest number
+
+check if it's a prime number
+
+create a object literal
+
+create object method in different ways
+
+create constructor function 
+
+swap the front and back elements in an array
+
+attention: empty array and console result
+
+create own object bubble sort
+
+built-in object method Math
+
+built-in constructor function Date()
+
+create time format: HyDate()
+
+return object function HyCountDown(time)
+
+return object by constructor function HyCountDown(time)
+
+compare the differents method to build 
+ your own libaray
+ eg. find the max and min in an array
+
+detect whether it's an array
+
+remove the max and min
+
+array method: .reverse .sort
+
+unique elements
+
+array convert to string
+
