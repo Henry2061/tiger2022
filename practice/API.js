@@ -1,3 +1,11 @@
+/*self-defined words:
+attention. 
+note. 
+remember. 
+SMR. 
+topic. 
+*/
+
 
 /*★★★★★★★ 000 generate pre-codes ★★★★★★★*/
 
@@ -171,7 +179,7 @@ for(let i = 0; i < rows.length; i++) {
 	}
 }
 })(window);
-//★★★★★★★ 012 test css selectors ★★★★★★★
+//★★★★★★★ 012 topic. test css selectors ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id012');
 
@@ -262,34 +270,161 @@ for(let i = 0; i < menus.length; i++) {
 		dropdown[i].style.display = 'none';
 	}
 }
-menus
+
 // attention. pseudo array can be defined
 // as real array
-
 })(window);
-//★★★★★★★ 017 ★★★★★★★
+//★★★★★★★ 017 topic. Node Operation ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id017');
+// .parentNode
+// .children 	.children[0]	
+// .children[.children.length-1]
+// .firstElementChild
+// .lastElementChild
+// .nextElementSibling
+// .previousElementSibling
+
+// .childNodes
+// .firstChild
+// .lastChild
+// .nextSibling
+// .previousSibling
+
+// .createElement()
+// .appendChild()
+// .insertBefore(child, designated element)
+
+// node.removeChild(child)
+
+// node.cloneNode()
+// node.cloneNode(true)
+let test = loc.querySelector('.test');
+// let p = document.createElement('p');
+
+for (i = 0; i < 4; i++) {
+	let ps = [];
+	ps[i] = document.createElement('p');
+	test.appendChild(ps[i]);
+	let p = loc.querySelectorAll('p');
+	p[i].innerHTML = `test${i}`;
+}
+let div1 = document.createElement('div');
+test.appendChild(div1);
+let div2 = document.createElement('div');
+test.insertBefore(div1, test.children[2]);
+//attention. createElement can only work
+// only one time after creating
+// console.log(p);
 
 })(window);
-//★★★★★★★ 018 ★★★★★★★
+//★★★★★★★ 018 topic. float box position ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id018');
 
 })(window);
-//★★★★★★★ 019 ★★★★★★★
+//★★★★★★★ 019 message board ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id019');
+let btn = loc.querySelector('button');
+let text = loc.querySelector('textarea');
+let ul = loc.querySelector('ul');
 
+btn.onclick = function() {
+	let message = text.value;
+	
+	if (!message) {
+		alert('Your message is empty!');
+		return false;
+		// attention. quit the event
+	} else {
+		let li = document.createElement('li');
+		ul.insertBefore(li, ul.children[0]);
+		message += 
+		"<a href='JavaScript:;'>Delete</a>";
+		ul.children[0].innerHTML = message;
+		let del = ul.querySelectorAll('a');
+		// console.log(del);
+		let getLi = loc.querySelectorAll('li');
+		for (let i = 0; i < del.length; i++) {
+			del[i].onclick = function() {
+				ul.removeChild(getLi[i]);
+				// console.log(11);
+			}
+		}
+	}
+}
+
+	
 })(window);
-//★★★★★★★ 020 ★★★★★★★
+//★★★★★★★ 020 dynamic table ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id020');
+let tbody = loc.querySelector('tbody');
+let obj = [];
+function DataObj(nums,names, adds, phones) {
+	this.nums = nums;
+	this.names = names;
+	this.adds = adds;
+	this.phones = phones;
+}
+obj.push(
+	new DataObj(1, 'Henry', 'kiudl fewh jghhwe', 2872411254));
+obj.push(
+	new DataObj(2, 'Jerry', 'grefl fewh fht', 238727577));
+obj.push(
+	new DataObj(3, 'Tom', 'fsj ytl uolo', 2383254752));
+obj.push(
+	new DataObj(4, 'Joseph', 'rhr ewgf hjghnjg', 9424271310));
+obj.push(
+	new DataObj(5, 'Zoe', 'fshl wfwpj fsanvo', 8571752952));
+// console.log(obj);
+
+for(let i = 0; i < obj.length; i++) {
+	let trNew = document.createElement('tr');
+	tbody.appendChild(trNew);
+	// attention. no '' in the () of appendChild
+	let tr = tbody.children;
+
+	for(let prop in obj[i]) {
+		let tdNew = document.createElement('td');
+		tdNew.innerHTML = obj[i][prop];
+		// attention. assign the content first, 
+		// then append Node (question.)
+		tr[i].appendChild(tdNew);
+	}
+	let tdNew = document.createElement('td');
+	tdNew.innerHTML = "<a href='JavaScript:;'>Delete</a>";
+	tr[i].appendChild(tdNew);
+}
+
+for (i = 0; i < obj.length; i++) {
+	let a = tbody.querySelectorAll('a');
+	a[i].onclick = function() {
+		// tbody.removeChild(tbody.children[i]);
+		//attention. tbody cannot appear both as parent node
+		// and also in the ()
+		tbody.removeChild(this.parentNode.parentNode);
+	}
+}
+
 
 })(window);
-//★★★★★★★ 021 ★★★★★★★
+//★★★★★★★ 021 img follow cursor ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id021');
+let img = loc.querySelector('img');
+
+loc.addEventListener('mousemove', function(e) {
+	let x = e.pageX;
+	let y = e.pageY;
+	console.log('x:'+x);
+	console.log('y:'+y);
+	if(x < 1016 && y < 3523) {
+		img.style.left = x + 'px';
+		img.style.top = y -3305 + 'px';
+	}
+});
 
 })(window);
 //★★★★★★★ 022 ★★★★★★★

@@ -6,7 +6,7 @@
 	margin: 20px 0;
 }
 body {
-	margin-bottom: 500px;
+	margin-bottom: 300px;
 }
 
 /*★★★★★★★ 000 ★★★★★★★*/
@@ -302,7 +302,12 @@ the order of the class css affects the precedence*/
 #id016 .dropdown {
 	display: none;
 }
-
+/*9. make outer box float*/
+#id016  {
+	/*float: left;*/
+	/*border: 1px solid red;*/
+	height: 300px;
+}
 /*★★★★★★★ 017 ★★★★★★★*/
 #id017 {
 
@@ -322,30 +327,61 @@ the order of the class css affects the precedence*/
 }
 
 /*★★★★★★★ 019 ★★★★★★★*/
-#id019 {
-
+#id019 * {
+	margin: 0;
+	padding: 0;
+}
+#id019 textarea {
+	height: 100px;
+	width: 200px;
+	border: 1px solid #911;
+	resize: none;
 }
 
-#id019 {
-
+#id019 li{
+	background-color: #ddf;
+	/*list-style-type: none;*/
+	width: 400px;
+	margin-top: 5px;
 }
-
+#id019 li a {
+	float: right;
+}
 /*★★★★★★★ 020 ★★★★★★★*/
-#id020 {
-
+#id020 table, #id020 th, #id020 td {
+	/*question. remove #id020 table will lead to logic error*/
+	border: 1px solid #333;
+	border-collapse: collapse;
 }
 
-#id020 {
-
+#id020 table{
+	width: 700px;
+	text-align: center;
 }
 
+#id020 tr {
+	height: 30px;
+}
+#id020 th {
+	font-size: 25px;
+	background-color: #ccc;
+}
+#id020 td {
+	font-size: 20px;
+}
+#id020 tbody tr:hover {
+	background-color: #fee;
+}
 /*★★★★★★★ 021 ★★★★★★★*/
 #id021 {
-
+	height: 300px;
+	width: 80%;
+	position: relative;
+	background-color: #ccc;
 }
 
-#id021 {
-
+#id021 img {
+	position: absolute;
 }
 
 /*★★★★★★★ 022 ★★★★★★★*/
