@@ -230,7 +230,25 @@ function HycCountDown(time) {
 // console.log(countDownNewYear);
 // console.log(countDownNewYear.d);
 
-
+function HycTimer(time) {
+  let timeStamp = 0;
+  let timeInput = time;
+  let timeLeft = (timeInput - timeStamp);
+  // let obj = {};
+  // console.log(timeInput);
+  d = Math.floor(timeLeft/60/60/24);
+  hours = Math.floor(timeLeft/60/60%24);
+  minutes = Math.floor(timeLeft/60%60);
+  seconds = Math.floor(timeLeft%60)
+  
+  hours = hours<10? '0'+hours:hours;
+  minutes = minutes<10? '0'+minutes:minutes;
+  seconds = seconds<10? '0'+seconds:seconds;
+  this.d = d;
+  this.hours = hours;
+  this.minutes = minutes;
+  this.seconds = seconds;
+}
 //2. constructor function 
 
 function HycFindXL(arr) {

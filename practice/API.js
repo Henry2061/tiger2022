@@ -5,6 +5,8 @@ remember.
 SMR. 
 topic. 
 */
+window.addEventListener('DOMContentLoaded', function(){
+
 
 
 /*★★★★★★★ 000 generate pre-codes ★★★★★★★*/
@@ -418,8 +420,8 @@ let img = loc.querySelector('img');
 loc.addEventListener('mousemove', function(e) {
 	let x = e.pageX;
 	let y = e.pageY;
-	console.log('x:'+x);
-	console.log('y:'+y);
+	// console.log('x:'+x);
+	// console.log('y:'+y);
 	if(x < 1016 && y < 3523) {
 		img.style.left = x + 'px';
 		img.style.top = y -3305 + 'px';
@@ -427,24 +429,156 @@ loc.addEventListener('mousemove', function(e) {
 });
 
 })(window);
-//★★★★★★★ 022 ★★★★★★★
+//★★★★★★★ 022 disable copy text ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id022');
+loc.addEventListener('contextmenu', function(e){
+	e.preventDefault();
+});
+loc.addEventListener('selectstart', function(e){
+	e.preventDefault();
+});
+
+loc.addEventListener('click', fn);
+function fn (e) {
+	loc.style.cursor = 'not-allowed';
+	// alert('not allowed to copy!');
+	// loc.removeEventListener('click', fn);
+	// attention. remove Event doesn't stop cursor style
+	// e.preventDefault();
+	let delay = setTimeout(fnDelay, 3000);
+	function fnDelay () {
+		loc.style.cursor = 'default';
+	}
+}
 
 })(window);
-//★★★★★★★ 023 ★★★★★★★
+//★★★★★★★ 023 keyboard-cursor focus ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id023');
+let input = loc.querySelector('input');
+document.addEventListener('keyup', function(e) {
+	// question. document.addEventListener 
+	// works for console.log(e.keyCode)
+	// attention. loc.add... doesn't work
+	// console.log(e.keyCode);
+	if(e.keyCode === 83) {
+		// input.focus();
+	}
+});
 
 })(window);
-//★★★★★★★ 024 ★★★★★★★
+//★★★★★★★ 024 larger text frame when input ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id024');
+let input = loc.querySelector('input');
+let con = input.previousElementSibling;
+input.addEventListener('keyup', function() {
+	// attention. 'focus' leads to logic error
+	if (input.value =='') {
+		con.style.display = 'none';
+		// console.log(11);
+	} else {
+		con.style.display = 'block';
+		// console.log(22);
+		con.innerHTML = input.value;
+	}
+});
+input.addEventListener('blur', function() {
+	con.style.display = 'none';
+});
+//method 1: 
+// input.addEventListener('focus', function() {
+// 	if(this.value !== '') {
+// 		con.style.display = 'block';
+// 	}
+// });
+// method 2: 
+input.addEventListener('focus', function() {
+	if(this.value == '') {
+		con.style.display = 'none';
+	} else{
+		con.style.display = 'block';
+	}
+	// console.log(input.value);
+	// attention. input.value works when re-focus
+});
+
+
+
 
 })(window);
-//★★★★★★★ 025 ★★★★★★★
+//★★★★★★★ 025 timer v2.2 ★★★★★★★
 (function(global) {
 let loc = document.querySelector('#id025');
+let btnStart = loc.querySelector('.start');
+let btnPause = loc.querySelector('.pause');
+let btnClear = loc.querySelector('.clear');
+let input = loc.querySelector('input');
+let hrs = loc.querySelector('.hour');
+let mins = loc.querySelector('.minute');
+let secs = loc.querySelector('.second');
+let timer1 = {};
+let timeSec = 0;
+let sec1 = null;
+let run = true;
+btnStart.addEventListener('click', function() {
+	if(sec1) {
+		clearInterval(sec1);
+		// prevent setInterval from accumulated running
+	}
+	run = true;
+	timeSec = input.value * 60;
+	timer1 = new HycTimer(timeSec);
+	hrs.innerHTML = timer1.hours;
+	mins.innerHTML = timer1.minutes;
+	secs.innerHTML = timer1.seconds;
+	// timer1 = new HycTimer(timeSec);
+  sec1 = setInterval(function() {
+  	if (run) {
+  		timeSec--;
+  	}
+  	
+		timer1 = new HycTimer(timeSec);
+		// console.log(timeSec);
+		hrs.innerHTML = timer1.hours;
+		mins.innerHTML = timer1.minutes;
+		secs.innerHTML = timer1.seconds;
+		// console.log(sec1);
+		if (timeSec <= 0) {
+			clearInterval(sec1);
+			timeSec = 0;
+			timer1 = new HycTimer(timeSec);
+			// console.log(timeSec);
+			hrs.innerHTML = timer1.hours;
+			mins.innerHTML = timer1.minutes;
+			secs.innerHTML = timer1.seconds;
+		} 
+		
+	}, 1000);
+});
+
+btnPause.addEventListener('click', function() {
+	console.log(timeSec);
+	run = !run;
+	if(run) {
+		this.innerHTML = 'Pause';
+		this.style.backgroundColor = '#a22';
+	} else {
+		this.innerHTML = 'Relaunch';
+		this.style.backgroundColor = '#2a2';
+	}
+
+});
+btnClear.addEventListener('click', function() {
+	clearInterval(sec1);
+	timeSec = 0;
+	timer1 = new HycTimer(timeSec);
+	// console.log(timeSec);
+	hrs.innerHTML = timer1.hours;
+	mins.innerHTML = timer1.minutes;
+	secs.innerHTML = timer1.seconds;
+});
 
 })(window);
 //★★★★★★★ 026 ★★★★★★★
@@ -2322,3 +2456,4 @@ let loc = document.querySelector('#id399');
 let loc = document.querySelector('#id400');
 
 })(window);
+}); // DOMContentLoaded

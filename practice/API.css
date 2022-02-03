@@ -386,7 +386,9 @@ the order of the class css affects the precedence*/
 
 /*★★★★★★★ 022 ★★★★★★★*/
 #id022 {
-
+	font-style: italic;
+	font-size: 20px;
+	/*cursor: default;*/
 }
 
 #id022 {
@@ -403,23 +405,85 @@ the order of the class css affects the precedence*/
 }
 
 /*★★★★★★★ 024 ★★★★★★★*/
-#id024 {
-
+/*question. */
+#id024 * {
+    margin: 0;
+    padding: 0;
 }
 
-#id024 {
-
+#id024 .search {
+    position: relative;
+    width: 250px;
+    margin: 50px;
 }
 
+#id024 .con {
+    display: none;
+    position: absolute;
+    top: -40px;
+    width: 230px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    padding: 5px 0;
+    /*font-size: 18px;
+    line-height: 20px;
+    color: #333;*/
+}
+#id024 input {
+	width: 200px;
+}
+#id024 .con::before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 28px;
+    left: 18px;
+    border: 8px solid #000;
+    border-style: solid dashed dashed;
+    border-color: #fff transparent transparent;
+}
 /*★★★★★★★ 025 ★★★★★★★*/
-#id025 {
-
+#id025 input {
+	width: 50px;
+	height: 30px;
+	font-size: 20px;
 }
-
-#id025 {
-
+#id025 button {
+	height: 30px;
+	width: auto;
+	background-color: #7a7;
+	font-size: 20px;
 }
-
+#id025 .pause {
+	background-color: #a22;
+	width: 100px;
+}
+#id025 .clear {
+	background-color: #b4b;
+}
+#id025 .countdown {
+	margin: 20px 10px;
+}
+#id025 span {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background-color: #444;
+	text-align: center;
+	color: #ddf;
+	font-size: 30px;
+	/*vertical-align: 30px;*/
+	padding: 5px;
+	line-height: 50px;
+}
+#id025 i {
+	font-style: normal;
+	font-size: 30px;
+	font-weight: bold;
+	color:#55f;
+}
+#id025 
 /*★★★★★★★ 026 ★★★★★★★*/
 #id026 {
 
