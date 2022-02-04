@@ -33,11 +33,11 @@ let audio = loc.querySelector('audio');
 
 
 
-document.addEventListener('touchstart', touch);
-function touch () {
-	audio.load();
-	audio.play();
-}
+// document.addEventListener('touchstart', touch);
+// function touch () {
+// 	audio.load();
+// 	audio.play();
+// }
 	
 
 
