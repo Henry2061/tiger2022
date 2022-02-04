@@ -30,17 +30,12 @@ let secs = loc.querySelector('.second');
 let cycleShow = loc.querySelector('.cycleShow');
 let mobile = loc.querySelector('.mobile');
 let audio = loc.querySelector('audio');
-let enableMobileAudio = false;
+
 
 
 document.addEventListener('touchstart', touch);
-function touch() {
-	// alert(22);
-	enableMobileAudio = true;
-	mobile.innerHTML = `<audio id="myAudio" >
-    <source src="audio/vibraphone.mp3" type="audio/mpeg">
-  </audio>`;
-	let audio = loc.querySelector('audio');
+	audio.load();
+	audio.play();
 }
 
 let timeLeft = cycles.nextElementSibling;
@@ -192,10 +187,7 @@ btnStart.addEventListener('click', function() {
 				hrs.innerHTML = timer1.hours;
 				mins.innerHTML = timer1.minutes;
 				secs.innerHTML = timer1.seconds;
-				if(enableMobileAudio) {
-					audio.load();
-					audio.play();
-				}
+
 					audio.load();
 					audio.play();
 				
