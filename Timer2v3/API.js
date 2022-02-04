@@ -34,9 +34,12 @@ let audio = loc.querySelector('audio');
 
 
 document.addEventListener('touchstart', touch);
+function touch () {
 	audio.load();
 	audio.play();
 }
+	
+
 
 let timeLeft = cycles.nextElementSibling;
 let timer1 = {};
