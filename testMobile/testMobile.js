@@ -5,7 +5,11 @@ let btn = document.querySelector('button');
 
 
 btn.addEventListener('click', function() {
-	audio.load();
-	audio.play();
+
+	setInterval(function() {
+		audio.load();
+		audio.play();
+	}, 5000); 
+	
 	// alert(11);
 });
