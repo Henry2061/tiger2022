@@ -6,7 +6,7 @@ SMR.
 topic. 
 */
 window.addEventListener('DOMContentLoaded', function(){
- 
+
 
 
 
@@ -28,12 +28,20 @@ let hrs = loc.querySelector('.hour');
 let mins = loc.querySelector('.minute');
 let secs = loc.querySelector('.second');
 let cycleShow = loc.querySelector('.cycleShow');
+let mobile = loc.querySelector('.mobile');
 let audio = loc.querySelector('audio');
+let enableMobileAudio = false;
 
 
-
-
-
+document.addEventListener('touchstart', touch);
+function touch() {
+	// alert(22);
+	enableMobileAudio = true;
+	mobile.innerHTML = `<audio id="myAudio" >
+    <source src="audio/vibraphone.mp3" type="audio/mpeg">
+  </audio>`;
+	let audio = loc.querySelector('audio');
+}
 
 let timeLeft = cycles.nextElementSibling;
 let timer1 = {};
@@ -184,8 +192,12 @@ btnStart.addEventListener('click', function() {
 				hrs.innerHTML = timer1.hours;
 				mins.innerHTML = timer1.minutes;
 				secs.innerHTML = timer1.seconds;
-				audio.load();
-				audio.play();
+				if(enableMobileAudio) {
+					audio.load();
+					audio.play();
+				}
+					audio.load();
+					audio.play();
 				
 				
 				if(startWork==false) {
