@@ -34,6 +34,9 @@ let timeLeftSec = 0;
 let	timer2 = {};		
 let emptyDetect = false;
 let run = true;
+let anyNaN = true;
+btnPause.disabled = true;
+btnStart.disabled = true;
 works.addEventListener('keyup',function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
@@ -41,8 +44,12 @@ works.addEventListener('keyup',function() {
 		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
-		timeLeft.innerHTML = 
-		`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+	anyNaN = isNaN(timer2.hours) || 
+	isNaN(timer2.minutes) ||
+	isNaN(timer2.seconds);
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
+	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+	btnStart.disabled = anyNaN;
 });
 breaks.addEventListener('keyup',function() {
 	timeLeftSec = 
@@ -51,8 +58,12 @@ breaks.addEventListener('keyup',function() {
 		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 	timer2 = new HycTimer(timeLeftSec);	
-	timeLeft.innerHTML = 
+	anyNaN = isNaN(timer2.hours) || 
+	isNaN(timer2.minutes) ||
+	isNaN(timer2.seconds);
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+	btnStart.disabled = anyNaN;
 });
 cycles.addEventListener('keyup',function() {
 	timeLeftSec = 
@@ -61,8 +72,12 @@ cycles.addEventListener('keyup',function() {
 		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
-	timeLeft.innerHTML = 
+	anyNaN = isNaN(timer2.hours) || 
+	isNaN(timer2.minutes) ||
+	isNaN(timer2.seconds);
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+	btnStart.disabled = anyNaN;
 });
 
 // console.log(timeLeft);
@@ -70,10 +85,25 @@ btnStart.addEventListener('click', function() {
 	let cyclesNo = 0;
 	let startWork = true;
 	let termination = false;
-	
+	btnStart.disabled = true;
+	btnPause.disabled = false;
+	works.disabled = true;
+	breaks.disabled = true;
+	cycles.disabled = true;
+	timeLeftSec = 
+	(parseFloat(works.value)  + 
+		parseFloat(breaks.value))* 
+		parseFloat(cycles.value)*60;
+		console.log(timeLeftSec);
+	timer2 = new HycTimer(timeLeftSec);	
+	anyNaN = isNaN(timer2.hours) || 
+	isNaN(timer2.minutes) ||
+	isNaN(timer2.seconds);
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
+	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 
 	cycleShow.innerHTML = 
-		`Current Cycle No.: ${cyclesNo + 1}`;
+		`Current Cycle: ${cyclesNo + 1}`;
 
 	if(sec1) {
 		clearInterval(sec1);
@@ -91,8 +121,9 @@ btnStart.addEventListener('click', function() {
 		// timer1 = new HycTimer(timeSec);
 
 	  sec1 = setInterval(function() {
+	  	
 	  	cycleShow.innerHTML = 
-				`Current Cycle No.: ${cyclesNo + 1}`;
+				`Current Cycle: ${cyclesNo + 1}`;
 	  	if(termination) {
 	  		termination = false;
 	  		if(startWork) {
@@ -134,6 +165,11 @@ btnStart.addEventListener('click', function() {
 				}
 				if (cyclesNo == cycles.value) {
 					clearInterval(sec1);
+					timeLeftSec = 0;
+	
+		timer2 = new HycTimer(timeLeftSec);	
+		timeLeft.innerHTML = 
+		`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 				}
 				// console.log(cycles.value);
 				// console.log(cyclesNo);
@@ -152,10 +188,10 @@ btnPause.addEventListener('click', function() {
 	run = !run;
 	if(run) {
 		this.innerHTML = 'Pause';
-		this.style.backgroundColor = '#a22';
+		this.style.backgroundColor = '#ffb3b3';
 	} else {
 		this.innerHTML = 'Relaunch';
-		this.style.backgroundColor = '#2a2';
+		this.style.backgroundColor = '#bfff00';
 	}
 
 });
@@ -174,11 +210,18 @@ timeLeftSec =
 		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
-		timeLeft.innerHTML = 
-		`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
-	timer2 = new HycTimer(timeLeftSec);	
-					timeLeft.innerHTML = 
-					`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+		anyNaN = isNaN(timer2.hours) || 
+	isNaN(timer2.minutes) ||
+	isNaN(timer2.seconds);
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
+	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+		btnPause.innerHTML = 'Pause';
+		btnPause.style.backgroundColor = '#ffb3b3';
+		btnPause.disabled = true;
+		btnStart.disabled = anyNaN;
+			works.disabled = false;
+		breaks.disabled = false;
+		cycles.disabled = false;
 });
 
 
