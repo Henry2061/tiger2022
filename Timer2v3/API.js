@@ -41,12 +41,16 @@ works.addEventListener('keyup',function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseInt(cycles.value)*60;
+		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
 	isNaN(timer2.minutes) ||
-	isNaN(timer2.seconds);
+	isNaN(timer2.seconds) ||
+	!Number.isInteger(parseFloat(cycles.value)) ||
+	parseFloat(works.value)<= 0 ||
+	parseFloat(breaks.value)<= 0 ||
+	parseFloat(cycles.value)< 1;
 	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 	btnStart.disabled = anyNaN;
@@ -55,26 +59,35 @@ breaks.addEventListener('keyup',function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseInt(cycles.value)*60;
+		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 	timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
 	isNaN(timer2.minutes) ||
-	isNaN(timer2.seconds);
+	isNaN(timer2.seconds) ||
+	!Number.isInteger(parseFloat(cycles.value)) ||
+	parseFloat(works.value)<= 0 ||
+	parseFloat(breaks.value)<= 0 ||
+	parseFloat(cycles.value)< 1;
 	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 	btnStart.disabled = anyNaN;
 });
 cycles.addEventListener('keyup',function() {
+	
 	timeLeftSec = 
-	(parseFloat(works.value)  + 
+	( parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseInt(cycles.value)*60;
+		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
 	isNaN(timer2.minutes) ||
-	isNaN(timer2.seconds);
+	isNaN(timer2.seconds) ||
+	!Number.isInteger(parseFloat(cycles.value)) ||
+	parseFloat(works.value)<= 0 ||
+	parseFloat(breaks.value)<= 0 ||
+	parseFloat(cycles.value)< 1;
 	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 	btnStart.disabled = anyNaN;
@@ -93,12 +106,16 @@ btnStart.addEventListener('click', function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseInt(cycles.value)*60;
+		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 	timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
 	isNaN(timer2.minutes) ||
-	isNaN(timer2.seconds);
+	isNaN(timer2.seconds) ||
+	!Number.isInteger(parseFloat(cycles.value)) ||
+	parseFloat(works.value)<= 0 ||
+	parseFloat(breaks.value)<= 0 ||
+	parseFloat(cycles.value)< 1;
 	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 
@@ -164,12 +181,20 @@ btnStart.addEventListener('click', function() {
 					cyclesNo++;
 				}
 				if (cyclesNo == cycles.value) {
-					clearInterval(sec1);
+					
 					timeLeftSec = 0;
 	
-		timer2 = new HycTimer(timeLeftSec);	
-		timeLeft.innerHTML = 
-		`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+					timer2 = new HycTimer(timeLeftSec);	
+					timeLeft.innerHTML = 
+					`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
+					btnPause.innerHTML = 'Pause';
+					btnPause.style.backgroundColor = '#ffb3b3';
+					btnPause.disabled = true;
+					btnStart.disabled = anyNaN;
+						works.disabled = false;
+					breaks.disabled = false;
+					cycles.disabled = false;
+					clearInterval(sec1);
 				}
 				// console.log(cycles.value);
 				// console.log(cyclesNo);
@@ -207,12 +232,16 @@ btnClear.addEventListener('click', function() {
 timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseInt(cycles.value)*60;
+		parseFloat(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
 		anyNaN = isNaN(timer2.hours) || 
 	isNaN(timer2.minutes) ||
-	isNaN(timer2.seconds);
+	isNaN(timer2.seconds) ||
+	!Number.isInteger(parseFloat(cycles.value)) ||
+	parseFloat(works.value)<= 0 ||
+	parseFloat(breaks.value)<= 0 ||
+	parseFloat(cycles.value)< 1;
 	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 		btnPause.innerHTML = 'Pause';
