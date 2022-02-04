@@ -23,7 +23,7 @@ body {
 	height: 30px;
 	font-size: 20px;
 	border:1px solid blue;
-	line-height: 50px;
+	/*line-height: 50px;*/
 }
 #id026 .btn {
 	margin: 10px;
