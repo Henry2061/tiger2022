@@ -32,29 +32,7 @@ let audio = loc.querySelector('audio');
 
 
 
-function audioAutoPlay(id){
-let audio = document.getElementById(id);
 
-let play = function() {
-    document.removeEventListener("WeixinJSBridgeReady", play);
-    document.removeEventListener("YixinJSBridgeReady", play);
-
-    audio.play();
-    audio.pause();
-    // document.removeEventListener("touchstart", play, false);
-};
-
-audio.play();
-audio.pause();
-
-//weixin
-document.addEventListener("WeixinJSBridgeReady", play, false);
-//yixin
-document.addEventListener('YixinJSBridgeReady', play, false);
-// document.addEventListener("touchstart", play, false);
-alert(222);
-}
-audioAutoPlay('myAudio');  
 
 
 let timeLeft = cycles.nextElementSibling;
@@ -206,6 +184,7 @@ btnStart.addEventListener('click', function() {
 				hrs.innerHTML = timer1.hours;
 				mins.innerHTML = timer1.minutes;
 				secs.innerHTML = timer1.seconds;
+				audio.load();
 				audio.play();
 				
 				
