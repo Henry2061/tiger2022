@@ -32,7 +32,10 @@ let mobile = loc.querySelector('.mobile');
 let audio = loc.querySelector('audio');
 
 
-
+document.addEventListener('touchstart', function() {
+	audio.load();
+	audio.play();
+});
 
 	
 
@@ -107,8 +110,8 @@ cycles.addEventListener('keyup',function() {
 
 // console.log(timeLeft);
 btnStart.addEventListener('click', function() {
-	audio.load();
-	audio.play();
+	// audio.load();
+	// audio.play();
 	let cyclesNo = 0;
 	let startWork = true;
 	let termination = false;
