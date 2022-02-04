@@ -41,7 +41,7 @@ works.addEventListener('keyup',function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseFloat(cycles.value)*60;
+		parseInt(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
@@ -55,7 +55,7 @@ breaks.addEventListener('keyup',function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseFloat(cycles.value)*60;
+		parseInt(cycles.value)*60;
 		console.log(timeLeftSec);
 	timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
@@ -69,7 +69,7 @@ cycles.addEventListener('keyup',function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseFloat(cycles.value)*60;
+		parseInt(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
@@ -93,7 +93,7 @@ btnStart.addEventListener('click', function() {
 	timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseFloat(cycles.value)*60;
+		parseInt(cycles.value)*60;
 		console.log(timeLeftSec);
 	timer2 = new HycTimer(timeLeftSec);	
 	anyNaN = isNaN(timer2.hours) || 
@@ -207,7 +207,7 @@ btnClear.addEventListener('click', function() {
 timeLeftSec = 
 	(parseFloat(works.value)  + 
 		parseFloat(breaks.value))* 
-		parseFloat(cycles.value)*60;
+		parseInt(cycles.value)*60;
 		console.log(timeLeftSec);
 		timer2 = new HycTimer(timeLeftSec);	
 		anyNaN = isNaN(timer2.hours) || 
