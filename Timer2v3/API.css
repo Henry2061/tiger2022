@@ -13,16 +13,17 @@ body {
 /*★★★★★★★ 026 ★★★★★★★*/
 #id026 * {
 	padding: 0 5px;
-	margin: 0;
+	margin: 5px 0;
 }
 #id026 {
 	font-size: 25px;
 }
 #id026 input {
-	width: 140px;
-	height: 40px;
-	font-size: 25px;
+	width: 120px;
+	height: 30px;
+	font-size: 20px;
 	border:1px solid blue;
+	line-height: 50px;
 }
 #id026 .btn {
 	margin: 10px;

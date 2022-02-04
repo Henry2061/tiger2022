@@ -107,6 +107,8 @@ cycles.addEventListener('keyup',function() {
 
 // console.log(timeLeft);
 btnStart.addEventListener('click', function() {
+	audio.load();
+	audio.play();
 	let cyclesNo = 0;
 	let startWork = true;
 	let termination = false;
