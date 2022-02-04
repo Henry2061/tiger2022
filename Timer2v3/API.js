@@ -12,6 +12,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
 //★★★★★★★ 026 timer v2.3★★★★★★★
 (function(global) {
+
+　　
+
+
+
 let loc = document.querySelector('#id026');
 let btnStart = loc.querySelector('.start');
 let btnPause = loc.querySelector('.pause');
@@ -24,6 +29,33 @@ let mins = loc.querySelector('.minute');
 let secs = loc.querySelector('.second');
 let cycleShow = loc.querySelector('.cycleShow');
 let audio = loc.querySelector('audio');
+
+
+
+function audioAutoPlay(id){
+let audio = document.getElementById(id);
+
+let play = function() {
+    document.removeEventListener("WeixinJSBridgeReady", play);
+    document.removeEventListener("YixinJSBridgeReady", play);
+
+    audio.play();
+    audio.pause();
+    // document.removeEventListener("touchstart", play, false);
+};
+
+audio.play();
+audio.pause();
+
+//weixin
+document.addEventListener("WeixinJSBridgeReady", play, false);
+//yixin
+document.addEventListener('YixinJSBridgeReady', play, false);
+// document.addEventListener("touchstart", play, false);
+alert(222);
+}
+audioAutoPlay('myAudio');  
+
 
 let timeLeft = cycles.nextElementSibling;
 let timer1 = {};
