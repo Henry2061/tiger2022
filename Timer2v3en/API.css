@@ -1,0 +1,79 @@
+.start-num {
+	background-color: #ddc;
+	color: #246;
+	font-size: 120%;
+	font-weight: bold;
+	margin: 20px 0;
+}
+body {
+	margin-bottom: 300px;
+}
+
+
+/*★★★★★★★ 026 ★★★★★★★*/
+#id026 * {
+	padding: 0 5px;
+	margin: 10px 0;
+}
+#id026 {
+	font-size: 25px;
+}
+#id026 input {
+	width: 120px;
+	height: 30px;
+	font-size: 20px;
+	border:1px solid blue;
+	/*line-height: 50px;*/
+}
+#id026 .btn {
+	margin: 10px;
+}
+#id026 .form span {
+	/*display: inline-block;*/
+	/*border:1px solid blue;*/
+	vertical-align: -2px;
+	/*padding-top: 2px;*/
+	font-size: 25px;
+	height: 30px;
+}
+#id026 .cycles {
+	width: 80px;
+}
+#id026 button {
+	border-radius: 5px;
+	height: 40px;
+	width: auto;
+	background-color: #99ffcc;
+	font-size: 30px;
+}
+#id026 .pause {
+	background-color: #ffb3b3;
+	width: 150px;
+}
+#id026 .clear {
+	background-color: #87CEFA;
+}
+#id026 .countdown {
+	margin: 20px 10px;
+}
+#id026 .countdown span {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background-color: #444;
+	text-align: center;
+	color: #ddf;
+	font-size: 30px;
+	/*vertical-align: 30px;*/
+	padding: 5px;
+	line-height: 50px;
+}
+#id026 i {
+	font-style: normal;
+	font-size: 30px;
+	font-weight: bold;
+	color:#55f;
+}
+#id026 audio {
+	display: none;
+}

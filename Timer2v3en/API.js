@@ -66,7 +66,7 @@ works.addEventListener('keyup',function() {
 	parseFloat(works.value)<= 0 ||
 	parseFloat(breaks.value)<= 0 ||
 	parseFloat(cycles.value)< 1;
-	timeLeft.innerHTML = anyNaN? '等待...' :
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 	btnStart.disabled = anyNaN;
 });
@@ -84,7 +84,7 @@ breaks.addEventListener('keyup',function() {
 	parseFloat(works.value)<= 0 ||
 	parseFloat(breaks.value)<= 0 ||
 	parseFloat(cycles.value)< 1;
-	timeLeft.innerHTML = anyNaN? '等待...' :
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 	btnStart.disabled = anyNaN;
 });
@@ -103,7 +103,7 @@ cycles.addEventListener('keyup',function() {
 	parseFloat(works.value)<= 0 ||
 	parseFloat(breaks.value)<= 0 ||
 	parseFloat(cycles.value)< 1;
-	timeLeft.innerHTML = anyNaN? '等待...' :
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 	btnStart.disabled = anyNaN;
 });
@@ -133,11 +133,11 @@ btnStart.addEventListener('click', function() {
 	parseFloat(works.value)<= 0 ||
 	parseFloat(breaks.value)<= 0 ||
 	parseFloat(cycles.value)< 1;
-	timeLeft.innerHTML = anyNaN? '等待...' :
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
 
 	cycleShow.innerHTML = 
-		`当前周期: ${cyclesNo + 1}`;
+		`Current Cycle: ${cyclesNo + 1}`;
 
 	if(sec1) {
 		clearInterval(sec1);
@@ -157,7 +157,7 @@ btnStart.addEventListener('click', function() {
 	  sec1 = setInterval(function() {
 	  	
 	  	cycleShow.innerHTML = 
-				`当前周期: ${cyclesNo + 1}`;
+				`Current Cycle: ${cyclesNo + 1}`;
 	  	if(termination) {
 	  		termination = false;
 	  		if(startWork) {
@@ -206,7 +206,7 @@ btnStart.addEventListener('click', function() {
 					timer2 = new HycTimer(timeLeftSec);	
 					timeLeft.innerHTML = 
 					`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
-					btnPause.innerHTML = '暂停';
+					btnPause.innerHTML = 'Pause';
 					btnPause.style.backgroundColor = '#ffb3b3';
 					btnPause.disabled = true;
 					btnStart.disabled = anyNaN;
@@ -231,10 +231,10 @@ btnPause.addEventListener('click', function() {
 	console.log(timeSec);
 	run = !run;
 	if(run) {
-		this.innerHTML = '暂停';
+		this.innerHTML = 'Pause';
 		this.style.backgroundColor = '#ffb3b3';
 	} else {
-		this.innerHTML = '重启';
+		this.innerHTML = 'Relaunch';
 		this.style.backgroundColor = '#bfff00';
 	}
 
@@ -261,9 +261,9 @@ timeLeftSec =
 	parseFloat(works.value)<= 0 ||
 	parseFloat(breaks.value)<= 0 ||
 	parseFloat(cycles.value)< 1;
-	timeLeft.innerHTML = anyNaN? '等待...' :
+	timeLeft.innerHTML = anyNaN? 'Wait...' :
 	`${timer2.hours} : ${timer2.minutes} : ${timer2.seconds}`;
-		btnPause.innerHTML = '重启';
+		btnPause.innerHTML = 'Pause';
 		btnPause.style.backgroundColor = '#ffb3b3';
 		btnPause.disabled = true;
 		btnStart.disabled = anyNaN;
