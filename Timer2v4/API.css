@@ -108,6 +108,7 @@ body {
   cursor: pointer;
   font-weight: bold;
   width: 150px;
+  /*background-color: white;*/
 
 }
 #id026 button:active {

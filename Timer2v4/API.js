@@ -92,8 +92,8 @@ let btnModule = {
 	},
 	changeStartApparence: function() {
 		this.startBtnEle.innerHTML = 'START';
-		this.startBtnEle.style.backgroundColor =
-		'rgb(239, 75, 23);';
+		// this.startBtnEle.style.backgroundColor =
+		// 'rgb(239, 75, 23);';
 	}
 }; 
 
@@ -145,6 +145,10 @@ function displaySecs (secs) {
 function initialState () {
 	btnModule.startBtnEle.disabled = true;
 	btnModule.resetBtnEle.disabled = true;
+	btnModule.startBtnEle.style.backgroundColor =
+	 'rgb(275, 211, 184)';
+	btnModule.resetBtnEle.style.backgroundColor =
+	 'rgb(275, 211, 184)'; 
 }
 
 
@@ -157,11 +161,19 @@ function inputState () {
 			.displayTotal(inputModule.getTotalSecs());
 		btnModule.startBtnEle.disabled = false;
 		btnModule.resetBtnEle.disabled = false;
+		btnModule.startBtnEle.style.backgroundColor =
+	 	'white';
+		btnModule.resetBtnEle.style.backgroundColor =
+	  'white'; 
 	} else {
 		countdownModule.totalEle.innerHTML = 
 			`Total: --:--:--`;
 		btnModule.startBtnEle.disabled = true;
 		btnModule.resetBtnEle.disabled = true;
+		btnModule.startBtnEle.style.backgroundColor =
+	 'rgb(275, 211, 184)';
+		btnModule.resetBtnEle.style.backgroundColor =
+	 'rgb(275, 211, 184)'; 
 	}
 
 
@@ -193,9 +205,9 @@ function startState () {
 	let workTime = 0;
 	let breakTime = 0;
 	let ratio = 0;
-	// audioModule.audioEle.muted = true;
-	// audioModule.audioEle.load();
-	// audioModule.audioEle.play();
+	audioModule.audioEle.muted = true;
+	audioModule.audioEle.load();
+	audioModule.audioEle.play();
 
 
 	intervalMain = setInterval(function() {
@@ -336,6 +348,10 @@ function overState () {
 	inputModule.cycleEle.disabled = false;
 	btnModule.startBtnEle.disabled = false;
 	btnModule.resetBtnEle.disabled = false;
+	btnModule.startBtnEle.style.backgroundColor =
+ 	'white';
+	btnModule.resetBtnEle.style.backgroundColor =
+  'white'; 
 	btnModule.changeStartApparence();
 
 	countdownModule.countdownEle.innerHTML =
