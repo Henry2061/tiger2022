@@ -181,8 +181,10 @@ function startState () {
 	let numCycle = inputModule.getCycleValue();
 	let onceCycleOver = 1;
 	// console.log(numCycle)
-	let numWork = inputModule.getWorkValue();
-	let numBreak = inputModule.getBreakValue();
+	let numWork = 
+		Math.round(inputModule.getWorkValue());
+	let numBreak = 
+		Math.round(inputModule.getBreakValue());
 	let numKey = 0;
 	let endProcess = false;
 	let cycle = 'workInitial';
@@ -191,9 +193,9 @@ function startState () {
 	let workTime = 0;
 	let breakTime = 0;
 	let ratio = 0;
-	audioModule.audioEle.muted = true;
-	audioModule.audioEle.load();
-	audioModule.audioEle.play();
+	// audioModule.audioEle.muted = true;
+	// audioModule.audioEle.load();
+	// audioModule.audioEle.play();
 
 
 	intervalMain = setInterval(function() {
@@ -274,7 +276,7 @@ function startState () {
 		if(numKey<0) {numKey = 0;}
 		countdownModule.countdownEle.innerHTML =
 	 		displaySecs(numKey);
-	 	if(numKey<=1) {
+	 	if(numKey==1) {
 	 		endProcess =true;
 	 		
 	 	} 
