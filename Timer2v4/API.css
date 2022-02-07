@@ -36,8 +36,8 @@ body {
 }
 #id026 .line1 input {
 	/*layout*/
-	width: 115px;
-	font-size: 22px;
+	width: 113px;
+	font-size: 20px;
 	/*style*/
 	background-color: rgb(229, 104, 80);
 	border:none;
@@ -52,7 +52,7 @@ body {
 }
 #id026 .line1 input.cycle {
 	/*layout*/
-	width: 70px;
+	width: 60px;
 
 }
 #id026 .bar {
@@ -97,7 +97,7 @@ body {
 }
 #id026 .mainBoard button {
 	/*layout*/
-	font-size: 35px;
+	font-size: 33px;
   margin: 20px 10px;
   padding: 12px;
   /*style*/
@@ -107,7 +107,7 @@ body {
   box-shadow: 0px 5px 5px darkred;
   cursor: pointer;
   font-weight: bold;
-  width: 140px;
+  width: 150px;
 
 }
 #id026 button:active {
