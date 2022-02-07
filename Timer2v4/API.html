@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>API Practice</title>
+  <script src="HYscript.js"></script>
+  <script src="API.js"></script>
+	<link rel="stylesheet" href="API.css">
+</head>
+<body>
+<!--★★★★★★★ 026 ★★★★★★★-->
+
+<div id="id026">
+  <div class="outerBox">
+    
+    <ul class="line1">
+      <li><input class="work" type="text" placeholder="Work-mins"></li>
+      <li><input class="break" type="text" placeholder="Break-mins"></li>
+      <li><input class="cycle" type="text" placeholder="Cycles"></li>
+      <li class="total">Total: 00:00:00</li>
+    </ul>
+    
+    <div class="mainBoard">
+      <div class="countdown">00:00:00</div>
+      <div class="bar">
+        <div class="progress"></div>
+      </div>
+      <div class="cycleNo">#Cycle: 0</div>
+      <div class="btn">
+        <button>START</button>
+        <button>RESET</button>
+      </div>
+    </div>
+    <ul class="record">
+      <li>Work: 00:00:00</li>
+      <li>Break: 00:00:00</li>
+    </ul>
+  </div>  
+
+
+  <audio id="myAudio" controls >
+    <source src="audio/vibraphone.mp3" type="audio/mpeg">
+  </audio>
+
+</div>
+
+</body>
+</html>
