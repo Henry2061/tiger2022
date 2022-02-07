@@ -208,9 +208,9 @@ function startState () {
 		Math.round(inputModule.getWorkValue());
 	let numBreak = 
 		Math.round(inputModule.getBreakValue());
-	let numKey = 0;
+	// let numKey = 0;
 	let endProcess = false;
-	let cycle = 'workInitial';
+	// let cycle = 'workInitial';
 	let cycleCount = 1;
 	let left = inputModule.getTotalSecs();
 	let workTime = 0;
@@ -219,118 +219,106 @@ function startState () {
 	audioModule.audioEle.muted = true;
 	audioModule.audioEle.load();
 	audioModule.audioEle.play();
+	let numKey = numWork;
+	let cycle = 'inWork';
 
+		intervalMain = setInterval(function() {
+			// console.log(cycle +'+'+endProcess)
+			// console.log(ratio);
 
-	intervalMain = setInterval(function() {
-		// console.log(cycle +'+'+endProcess)
-		// console.log(ratio);
-
-	switch (cycle) {
-		case 'workInitial': {
-			numKey = numWork;
-			cycle = 'inWork';
-			ratio = 1 - (numKey-1)/(numWork);
-			titleModule.displayTitleWork(numKey-1);
-			break;
-		}
-		case 'inWork': {
-			ratio = 1 - (numKey-1)/(numWork);
-			titleModule.displayTitleWork(numKey-1);
-			if(endProcess) {
-				cycle = 'breakInitial';
-				endProcess = false;
-				audioModule.audioEle.muted = false;
-				audioModule.audioEle.load();
-				audioModule.audioEle.play();
-				
-			} 
-			break;
-		}
-		case 'breakInitial': {
-			numKey = numBreak;
-			cycle = 'inBreak';
-			ratio = 1 - (numKey-1)/(numBreak);
-			titleModule.displayTitleBreak(numKey-1);
-			break;
-		}
-		case 'inBreak': {
-			ratio = 1 - (numKey-1)/(numBreak);
-			titleModule.displayTitleBreak(numKey-1);
-			if(endProcess) {
-				audioModule.audioEle.muted = false;
-				audioModule.audioEle.load();
-				audioModule.audioEle.play();
-				
-				if(cycleCount<numCycle) {
-					cycle = 'workInitial';
-					endProcess = false;
-					cycleCount++;
-
-				}
-				else {
-					cycle = 'gameOver';
-					// clearInterval(intervalMain);
-					// overState();
-				}
-			}
-			
-			break;
-		}
-		case 'gameOver': {
-			
-			overState();
-			
-			break;
-		}
-		default: break;
-	}
-
-	if(numKey>0) {
-		if(btnModule.btnState === 'start'){
-			numKey--;
-		left--;
-		if (cycle === 'inWork' || 
-			cycle === 'breakInitial') {
-			workTime++;
-		}
-		if (cycle ==='inBreak' ||
-			cycle === 'workInitial' ||
-			cycle === 'gameOver') {
-			breakTime++;
-		}
-	}
 		
-		if(numKey<0) {numKey = 0;}
-		countdownModule.countdownEle.innerHTML =
-	 		displaySecs(numKey);
-	 	if(numKey==1) {
-	 		endProcess =true;
-	 		
-	 	} 
+
+		if(numKey>0) {
+			if(btnModule.btnState === 'start'){
+				numKey--;
+				left--;
+
+			// ratio = 1 - (numKey)/(numWork);
+			if (cycle === 'inWork' || 
+				cycle === 'breakInitial') {
+				workTime++;
+				ratio = 1 - (numKey)/(numWork);
+				titleModule.displayTitleWork(numKey);
+			}
+			if (cycle ==='inBreak' ||
+				cycle === 'workInitial' ||
+				cycle === 'gameOver') {
+				breakTime++;
+				ratio = 1 - (numKey)/(numBreak);
+				titleModule.displayTitleBreak(numKey);
+			}
+		}
+			
+			if(numKey<0) {numKey = 0;}
+			countdownModule.countdownEle.innerHTML =
+		 		displaySecs(numKey);
+		 	if(numKey==0) {
+		 		endProcess =true;
+		 			audioModule.audioEle.muted = false;
+					audioModule.audioEle.load();
+					audioModule.audioEle.play();
+		 		
+		 	} 
 
 
-	} 
-	countdownModule.displayCycleNo(cycleCount);
-	if(ratio>1) {ratio = 1;}
-	countdownModule.displayProgress(ratio);
+		} 
+		countdownModule.displayCycleNo(cycleCount);
+		if(ratio>1) {ratio = 1;}
+		countdownModule.displayProgress(ratio);
 
 
-	if(left<0) {left = 0;}
-	countdownModule.totalEle.innerHTML = 
-		countdownModule.displayTimeLeft(left);
+		if(left<0) {left = 0;}
+		countdownModule.totalEle.innerHTML = 
+			countdownModule.displayTimeLeft(left);
 
 
-	recordModule.workRecordEle.innerHTML = 
-		recordModule.displayWorkRecord(workTime);
-	recordModule.breakRecordEle.innerHTML = 
-		recordModule.displayBreakRecord(breakTime);	
-	
-	// titleModule.displayTitleWork(workTime);
-	// titleModule.displayTitleBreak(breakTime);
+		recordModule.workRecordEle.innerHTML = 
+			recordModule.displayWorkRecord(workTime);
+		recordModule.breakRecordEle.innerHTML = 
+			recordModule.displayBreakRecord(breakTime);	
+		
+		// titleModule.displayTitleWork(workTime);
+		// titleModule.displayTitleBreak(breakTime);
 
 
-	// console.log(numKey)
-	// console.log(ratio)
+		// console.log(numKey)
+		// console.log(ratio)
+		switch (cycle) {
+			case 'inWork': {
+				if(endProcess) {
+					endProcess = false;
+					// audioModule.audioEle.muted = false;
+					// audioModule.audioEle.load();
+					// audioModule.audioEle.play();
+					numKey = numBreak;
+					cycle = 'inBreak';
+				} 
+				break;
+			}
+			case 'inBreak': {
+				if(endProcess) {
+					// audioModule.audioEle.muted = false;
+					// audioModule.audioEle.load();
+					// audioModule.audioEle.play();
+					
+					if(cycleCount<numCycle) {
+						numKey = numWork;
+						cycle = 'inWork';
+						endProcess = false;
+						cycleCount++;
+					}
+					else {
+						cycle = 'gameOver';
+					}
+				}
+				break;
+			}
+			case 'gameOver': {
+				overState();
+				break;
+			}
+			default: break;
+		}
 	}, 1000);
 }
 
