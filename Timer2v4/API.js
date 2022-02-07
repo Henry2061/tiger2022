@@ -15,6 +15,17 @@ let loc = document.querySelector('#id026');
 
 let intervalMain = null;
 
+let titleModule = {
+	titleEle: document.querySelector('.title'),
+	displayTitleWork: function (workCycle) {
+		this.titleEle.innerHTML = 
+		`Work: ${displaySecs(workCycle)}`;
+	},
+	displayTitleBreak: function (breakCycle) {
+		this.titleEle.innerHTML = 
+		`Break: ${displaySecs(breakCycle)}`;
+	}
+};
 
 let inputModule = {
 	inputEle: loc.querySelector('.line1'),
@@ -219,17 +230,19 @@ function startState () {
 			numKey = numWork;
 			cycle = 'inWork';
 			ratio = 1 - (numKey-1)/(numWork);
+			titleModule.displayTitleWork(numKey-1);
 			break;
 		}
 		case 'inWork': {
 			ratio = 1 - (numKey-1)/(numWork);
+			titleModule.displayTitleWork(numKey-1);
 			if(endProcess) {
 				cycle = 'breakInitial';
 				endProcess = false;
 				audioModule.audioEle.muted = false;
 				audioModule.audioEle.load();
 				audioModule.audioEle.play();
-
+				
 			} 
 			break;
 		}
@@ -237,15 +250,17 @@ function startState () {
 			numKey = numBreak;
 			cycle = 'inBreak';
 			ratio = 1 - (numKey-1)/(numBreak);
-
+			titleModule.displayTitleBreak(numKey-1);
 			break;
 		}
 		case 'inBreak': {
 			ratio = 1 - (numKey-1)/(numBreak);
+			titleModule.displayTitleBreak(numKey-1);
 			if(endProcess) {
 				audioModule.audioEle.muted = false;
 				audioModule.audioEle.load();
 				audioModule.audioEle.play();
+				
 				if(cycleCount<numCycle) {
 					cycle = 'workInitial';
 					endProcess = false;
@@ -310,9 +325,12 @@ function startState () {
 	recordModule.breakRecordEle.innerHTML = 
 		recordModule.displayBreakRecord(breakTime);	
 	
-	
-	console.log(numKey)
-	console.log(ratio)
+	// titleModule.displayTitleWork(workTime);
+	// titleModule.displayTitleBreak(breakTime);
+
+
+	// console.log(numKey)
+	// console.log(ratio)
 	}, 1000);
 }
 
@@ -353,7 +371,7 @@ function overState () {
 	btnModule.resetBtnEle.style.backgroundColor =
   'white'; 
 	btnModule.changeStartApparence();
-
+	countdownModule.displayTimeLeft(0);
 	countdownModule.countdownEle.innerHTML =
 	 	displaySecs(0);
 	btnModule.btnState = 'over';
