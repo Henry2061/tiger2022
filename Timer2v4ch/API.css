@@ -1,0 +1,136 @@
+/*general layout and style*/
+body {
+	/*layout*/
+
+	/*style*/
+	background-color: rgb(239, 75, 23);
+}
+#id026 * {
+	/*layout*/
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	font-family: Arial;
+}
+#id026 .outerBox {
+	/*layout*/
+	text-align: center;
+	margin: 30px auto;
+	font-size: 22px;
+}
+
+/*line1 layout and style*/
+#id026 .line1 {
+
+	/*style*/
+	color: white;
+}
+#id026 .line1 li {
+	/*layout*/
+	display: inline-block;
+	margin: 10px auto;
+	/*style*/
+	color: white;
+}
+#id026 ul.line1 li:nth-child(4) {
+	display: block;
+}
+#id026 .line1 input {
+	/*layout*/
+	width: 113px;
+	font-size: 20px;
+	/*style*/
+	background-color: rgb(283, 150, 86);
+	/*background-color: rgb(275, 140, 69);*/
+	border:none;
+	color: white;
+	height: 35px;
+	border-radius: 7px;
+	font-style: italic;
+	box-shadow: 0 5px 5px darkred;
+}
+
+
+}
+#id026 .line1 input.cycle {
+	/*layout*/
+	width: 60px;
+
+}
+#id026 .bar {
+	width: 300px;
+	height: 5px;
+	background-color: white;
+	margin: 19px auto;
+	border-radius: 3px;
+}
+#id026 .progress {
+	width: 0px;
+	height: 5px;
+	background-color: rgb(293, 46, 6);
+	/*background-color: darkred;*/
+	margin: 0;
+	border-radius: 3px;
+	/*box-shadow: 0 0px 20px darkred;*/
+
+}
+
+/*countdown*/
+#id026 .mainBoard {
+	/*layout*/
+	width: 360px;
+	margin: 10px auto;
+	padding: 10px 0;
+	/*style*/
+	background-color: rgb(229, 104, 80);
+	border-radius: 20px;
+	box-shadow: 0 5px 5px darkred;
+}
+#id026 .countdown {
+	/*layout*/
+	font-size: 70px;
+	margin: 35px auto;
+	/*style*/
+	font-weight: bold;
+	color: white;
+}
+#id026 .cycleNo {
+	color: white;
+}
+#id026 .mainBoard button {
+	/*layout*/
+	font-size: 33px;
+  margin: 20px 10px;
+  padding: 12px;
+  /*style*/
+  color: rgb(239, 75, 23);
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 5px 1px darkred;
+  cursor: pointer;
+  font-weight: bold;
+  width: 150px;
+  /*background-color: white;*/
+
+}
+#id026 button:active {
+  /*background-color: rgb(229, 104, 80);*/
+  background-color: white;
+  box-shadow: 0px 3px 1px darkred;
+  transform: translateY(4px);
+  
+}
+
+
+/*record*/
+#id026 .record li {
+	/*layout*/
+	display: inline-block;
+	margin: 10px 3px;
+	color: white;
+}
+
+
+#id026 audio {
+	display: none;
+}
