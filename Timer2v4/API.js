@@ -77,7 +77,8 @@ let countdownModule = {
 		return `Total: ${displaySecs(secs)}`;
 	},
 	displayTimeLeft: function(secs) {
-		return `Time Left: ${displaySecs(secs)}`;
+		this.totalEle.innerHTML = 
+		`Time Left: ${displaySecs(secs)}`;
 	},
 	displayCycleNo: function(cycle) {
 		this.cycleNoEle.innerHTML =
@@ -87,14 +88,15 @@ let countdownModule = {
 
 let btnModule = {
 	startBtnEle: 
-		loc
-		.querySelector('.btn').children[0],
+		loc.querySelector('.btn').children[0],
 	resetBtnEle: 
-		loc
-		.querySelector('.btn').children[1],
+		loc.querySelector('.btn').children[1],
+	skipBtnEle:
+		loc.querySelector('.btn').children[2],
 	start: false,
 	stop: false,
 	reset: false,
+	skip: false,
 	btnState: 'disable',
 	changeStopApparence: function() {
 		this.startBtnEle.innerHTML = 'STOP';
@@ -121,6 +123,40 @@ let recordModule = {
 	},
 	displayBreakRecord: function (secs) {
 		return `Break: ${displaySecs(secs)}`;
+	},
+	workLight: function (Boo) {
+		if(Boo) {
+			this.workRecordEle.style
+			// .backgroundColor = 'rgb(239, 75, 23)';
+			.backgroundColor = 'rgb(229, 104, 80)';
+
+			this.workRecordEle.style
+			.boxShadow = '0 5px 5px darkred';
+			this.workRecordEle.style
+			.borderRadius = '8px';
+		} else {
+			this.workRecordEle.style
+			.backgroundColor = 'inherit';
+			this.workRecordEle.style
+			.boxShadow = 'none';
+		}
+	},
+	breakLight: function (Boo) {
+		if(Boo) {
+			this.breakRecordEle.style
+			// .backgroundColor = 'rgb(239, 75, 23)';
+			.backgroundColor = 'rgb(229, 104, 80)';
+
+			this.breakRecordEle.style
+			.boxShadow = '0 5px 5px darkred';
+			this.breakRecordEle.style
+			.borderRadius = '8px';
+		} else {
+			this.breakRecordEle.style
+			.backgroundColor = 'inherit';
+			this.breakRecordEle.style
+			.boxShadow = 'none';
+		}
 	}
 }; 
 
@@ -156,9 +192,12 @@ function displaySecs (secs) {
 function initialState () {
 	btnModule.startBtnEle.disabled = true;
 	btnModule.resetBtnEle.disabled = true;
+	btnModule.skipBtnEle.disabled = true;
 	btnModule.startBtnEle.style.backgroundColor =
 	 'rgb(275, 211, 184)';
 	btnModule.resetBtnEle.style.backgroundColor =
+	 'rgb(275, 211, 184)'; 
+	btnModule.skipBtnEle.style.backgroundColor =
 	 'rgb(275, 211, 184)'; 
 }
 
@@ -172,18 +211,24 @@ function inputState () {
 			.displayTotal(inputModule.getTotalSecs());
 		btnModule.startBtnEle.disabled = false;
 		btnModule.resetBtnEle.disabled = false;
+		btnModule.skipBtnEle.disabled = false;
 		btnModule.startBtnEle.style.backgroundColor =
 	 	'white';
 		btnModule.resetBtnEle.style.backgroundColor =
 	  'white'; 
+	  btnModule.skipBtnEle.style.backgroundColor =
+	  'white';
 	} else {
 		countdownModule.totalEle.innerHTML = 
 			`Total: --:--:--`;
 		btnModule.startBtnEle.disabled = true;
 		btnModule.resetBtnEle.disabled = true;
+		btnModule.skipBtnEle.disabled = true;
 		btnModule.startBtnEle.style.backgroundColor =
 	 'rgb(275, 211, 184)';
 		btnModule.resetBtnEle.style.backgroundColor =
+	 'rgb(275, 211, 184)'; 
+	 btnModule.skipBtnEle.style.backgroundColor =
 	 'rgb(275, 211, 184)'; 
 	}
 
@@ -221,7 +266,7 @@ function startState () {
 	audioModule.audioEle.play();
 	let numKey = numWork;
 	let cycle = 'inWork';
-
+	// btnModule.skip = false;
 		intervalMain = setInterval(function() {
 			// console.log(cycle +'+'+endProcess)
 			// console.log(ratio);
@@ -237,12 +282,16 @@ function startState () {
 			if (cycle === 'inWork' || 
 				cycle === 'breakInitial') {
 				workTime++;
+				recordModule.workLight(true);
+				recordModule.breakLight(false);
 				ratio = 1 - (numKey)/(numWork);
 				titleModule.displayTitleWork(numKey);
 			}
 			if (cycle ==='inBreak' ||
 				cycle === 'workInitial' ||
 				cycle === 'gameOver') {
+				recordModule.workLight(false);
+				recordModule.breakLight(true);
 				breakTime++;
 				ratio = 1 - (numKey)/(numBreak);
 				titleModule.displayTitleBreak(numKey);
@@ -260,6 +309,13 @@ function startState () {
 		 		
 		 	} 
 
+		 	// if(btnModule.skip) {
+		 	// 	endProcess = true;
+		 	// 	btnModule.skip = false;
+		 	// 	left = left - numKey;
+
+		 	// }
+
 
 		} 
 		countdownModule.displayCycleNo(cycleCount);
@@ -268,8 +324,7 @@ function startState () {
 
 
 		if(left<0) {left = 0;}
-		countdownModule.totalEle.innerHTML = 
-			countdownModule.displayTimeLeft(left);
+		countdownModule.displayTimeLeft(left);
 
 
 		recordModule.workRecordEle.innerHTML = 
@@ -285,27 +340,36 @@ function startState () {
 		// console.log(ratio)
 		switch (cycle) {
 			case 'inWork': {
-				if(endProcess) {
+				if(endProcess || btnModule.skip) {	
 					endProcess = false;
+					btnModule.skip = false;
+		 			left = left - numKey;
+					// btnModule.skip = false;
 					// audioModule.audioEle.muted = false;
 					// audioModule.audioEle.load();
 					// audioModule.audioEle.play();
 					numKey = numBreak;
 					cycle = 'inBreak';
+					
 				} 
 				break;
 			}
 			case 'inBreak': {
-				if(endProcess) {
+				if(endProcess || btnModule.skip) {
+				// if(endProcess) {
 					// audioModule.audioEle.muted = false;
 					// audioModule.audioEle.load();
 					// audioModule.audioEle.play();
-					
+					btnModule.skip = false;
 					if(cycleCount<numCycle) {
+						
+		 				left = left - numKey;
 						numKey = numWork;
 						cycle = 'inWork';
 						endProcess = false;
+						// btnModule.skip = false;
 						cycleCount++;
+						
 					}
 					else {
 						cycle = 'gameOver';
@@ -314,6 +378,7 @@ function startState () {
 				break;
 			}
 			case 'gameOver': {
+				// numKey = 0;
 				overState();
 				break;
 			}
@@ -346,7 +411,9 @@ function resetState () {
 	recordModule.displayBreakRecord(0);
 	countdownModule.displayProgress(0);
 }
-
+function skipState () {
+	btnModule.skip = true;
+}
 function overState () {
 	clearInterval(intervalMain);
 	inputModule.workEle.disabled = false;
@@ -354,16 +421,21 @@ function overState () {
 	inputModule.cycleEle.disabled = false;
 	btnModule.startBtnEle.disabled = false;
 	btnModule.resetBtnEle.disabled = false;
+	btnModule.skipBtnEle.disabled = false;
 	btnModule.startBtnEle.style.backgroundColor =
  	'white';
 	btnModule.resetBtnEle.style.backgroundColor =
+  'white'; 
+  btnModule.skipBtnEle.style.backgroundColor =
   'white'; 
 	btnModule.changeStartApparence();
 	countdownModule.displayTimeLeft(0);
 	countdownModule.countdownEle.innerHTML =
 	 	displaySecs(0);
+	countdownModule.displayProgress(0);	
 	btnModule.btnState = 'over';
-	
+	recordModule.workLight(false);
+	recordModule.breakLight(false);
 }
 
 // main
@@ -373,6 +445,7 @@ inputModule.inputEle.addEventListener('keyup',
 function() {
 		inputState();
 });
+
 
 btnModule.startBtnEle.addEventListener('click',
 function() {
@@ -407,10 +480,11 @@ function() {
 btnModule.resetBtnEle.addEventListener('click',
 	function () {
 	resetState();
-
-
 });
-
+btnModule.skipBtnEle.addEventListener('click',
+function() {
+	skipState();
+});
 
 
 })(window);
