@@ -69,8 +69,8 @@ let inputModule = {
 	},
 	isReady: function () {
 		let temp =
-		this.getWorkValue() >= 0 &&
-		this.getBreakValue() >= 0 &&
+		this.getWorkValue() > 0 &&
+		this.getBreakValue() > 0 &&
 		(this.getWorkValue() + 
 			this.getBreakValue()) > 0 &&
 		this.getCycleValue() >=1 &&
@@ -343,7 +343,7 @@ function startState () {
 
 		
 
-		if(numKey>=0) {
+		if(numKey>0) {
 			if(btnModule.btnState === 'start'){
 				numKey--;
 				left--;
@@ -372,7 +372,14 @@ function startState () {
 			countdownModule.countdownEle.innerHTML =
 		 		displaySecs(numKey);
 		 	if(numKey==0) {
-		 		endProcess =true;
+		 		// if(inputModule.getWorkValue()==0) {
+		 		// 	cycle = 'inBreak';
+		 		// } else if (inputModule.getBreakValue()==0) {
+		 		// 	cycle = 'inWork';
+		 		// } else {
+		 			endProcess =true;
+		 		// }
+		 		
 	 			// console.log(inputModule.getWorkValue())
 	 			
 	 			if(inputModule.anyZero()) {
@@ -389,7 +396,7 @@ function startState () {
 	 				
 	 			}	else {
 	 				audioModule.audioEle.muted = false;
-	 				audioModule.audioEle.load();
+	 				// audioModule.audioEle.load();
 	 				audioModule.audioEle.play();
 	 			}
 
@@ -458,7 +465,7 @@ function startState () {
 						endProcess = false;
 						// btnModule.skip = false;
 						cycleCount++;
-						
+						// break;
 					}
 					else {
 						cycle = 'gameOver';
@@ -469,7 +476,7 @@ function startState () {
 			case 'gameOver': {
 				// numKey = 0;
 				overState();
-				break;
+				// break;
 			}
 			default: break;
 		}
