@@ -419,7 +419,7 @@ function startState () {
 
 					btnModule.skip = false;
 					if(cycleCount<numCycle) {
-						audioModule.playAudio(1,false,false,true);
+						audioModule.playAudio(1,false,true,true);
 		 				left = left - numKey;
 						numKey = numWork;
 						cycle = 'inWork';
