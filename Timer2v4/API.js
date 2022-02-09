@@ -31,7 +31,7 @@ let titleModule = {
 	},
 	displayReset: function (breakCycle) {
 		this.titleEle.innerHTML = 
-		`Stopwatch / Countdown`;
+		`Tiger Timer 2v4`;
 	}
 };
 
