@@ -24,6 +24,14 @@ let titleModule = {
 	displayTitleBreak: function (breakCycle) {
 		this.titleEle.innerHTML = 
 		`Break: ${displaySecs(breakCycle)}`;
+	},
+	displayTitleStopW: function (breakCycle) {
+		this.titleEle.innerHTML = 
+		`${displaySecs(breakCycle)}`;
+	},
+	displayReset: function (breakCycle) {
+		this.titleEle.innerHTML = 
+		`Stopwatch / Countdown`;
 	}
 };
 
@@ -506,6 +514,7 @@ function overState () {
 	btnModule.skipDisabled(true);	
 	btnModule.changeStartApparence();
 	countdownModule.displayTotal();
+	titleModule.displayReset();
 	if(inputModule.isReady()) {
 		clearInterval(intervalMain);
 		// countdownModule.displayTimeLeft(0);
@@ -534,9 +543,7 @@ function stopWatchState() {
 	let numKey = 0;
 
 	intervalStopWatch = setInterval(function() {
-		// switch () {
-		// 	case: '';
-		// }
+		titleModule.displayTitleStopW(numKey);
 		if(btnModule.btnState === 'start') {
 			numKey++;
 			countdownModule.displayMain(numKey);
