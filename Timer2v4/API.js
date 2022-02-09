@@ -543,13 +543,13 @@ function stopWatchState() {
 	let numKey = 0;
 
 	intervalStopWatch = setInterval(function() {
-		titleModule.displayTitleStopW(numKey);
+		
 		if(btnModule.btnState === 'start') {
 			numKey++;
 			countdownModule.displayMain(numKey);
 		} 
 		
-
+		titleModule.displayTitleStopW(numKey);
 	}, 1000);
 }
 
