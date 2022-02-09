@@ -20,6 +20,7 @@ let titleModule = {
 	displayTitleWork: function (workCycle) {
 		this.titleEle.innerHTML = 
 		`Work: ${displaySecs(workCycle)}`;
+		this.titleEle.display = 'none';
 	},
 	displayTitleBreak: function (breakCycle) {
 		this.titleEle.innerHTML = 
@@ -239,10 +240,14 @@ let recordModule = {
 }; 
 
 let audioModule = {
-	audioEle: loc.querySelector('audio')
-	// mutedAudio: function (TorF) {
-	// 	this.audioEle.muted = TorF;
-	// }
+	audioEle0: loc.querySelector('.audio').children[0],
+	audioEle1: loc.querySelector('.audio').children[1],
+	audioEle2: loc.querySelector('.audio').children[2],
+	playAudio: function(i, muteB, loadB, playB) {
+		loc.querySelector('.audio').children[i].muted = muteB;
+		if(loadB) {loc.querySelector('.audio').children[i].load();}
+		if(playB) {loc.querySelector('.audio').children[i].play();}
+	}
 };
 
 // functions
@@ -331,9 +336,8 @@ function startState () {
 	let workTime = 0;
 	let breakTime = 0;
 	let ratio = 0;
-	audioModule.audioEle.muted = true;
-	audioModule.audioEle.load();
-	audioModule.audioEle.play();
+
+	audioModule.playAudio(0,true,true,true);
 	let numKey = numWork;
 	let cycle = 'inWork';
 	// btnModule.skip = false;
@@ -372,45 +376,8 @@ function startState () {
 			countdownModule.countdownEle.innerHTML =
 		 		displaySecs(numKey);
 		 	if(numKey==0) {
-		 		// if(inputModule.getWorkValue()==0) {
-		 		// 	cycle = 'inBreak';
-		 		// } else if (inputModule.getBreakValue()==0) {
-		 		// 	cycle = 'inWork';
-		 		// } else {
 		 			endProcess =true;
-		 		// }
-		 		
-	 			// console.log(inputModule.getWorkValue())
-	 			
-	 			if(inputModule.anyZero()) {
-	 				if(inputModule.getWorkValue()==0 &&
-	 				cycle ==='inWork') {
-	 					// attention. upper and lower case
-	 					// audioModule.audioEle.muted = true;
-
-	 				} else {
-	 					// console.log(11)
-	 					audioModule.audioEle.muted = false;
-	 					audioModule.audioEle.play();
-	 				}
-	 				
-	 			}	else {
-	 				audioModule.audioEle.muted = false;
-	 				// audioModule.audioEle.load();
-	 				audioModule.audioEle.play();
-	 			}
-
-					
-					
-		 		
 		 	} 
-
-		 	// if(btnModule.skip) {
-		 	// 	endProcess = true;
-		 	// 	btnModule.skip = false;
-		 	// 	left = left - numKey;
-
-		 	// }
 
 
 		} 
@@ -440,10 +407,7 @@ function startState () {
 					endProcess = false;
 					btnModule.skip = false;
 		 			left = left - numKey;
-					// btnModule.skip = false;
-					// audioModule.audioEle.muted = false;
-					// audioModule.audioEle.load();
-					// audioModule.audioEle.play();
+					audioModule.playAudio(0,false,true,true);
 					numKey = numBreak;
 					cycle = 'inBreak';
 					
@@ -452,13 +416,10 @@ function startState () {
 			}
 			case 'inBreak': {
 				if(endProcess || btnModule.skip) {
-				// if(endProcess) {
-					// audioModule.audioEle.muted = false;
-					// audioModule.audioEle.load();
-					// audioModule.audioEle.play();
+
 					btnModule.skip = false;
 					if(cycleCount<numCycle) {
-						
+						audioModule.playAudio(1,false,false,true);
 		 				left = left - numKey;
 						numKey = numWork;
 						cycle = 'inWork';
@@ -469,6 +430,7 @@ function startState () {
 					}
 					else {
 						cycle = 'gameOver';
+						audioModule.playAudio(2,false,true,true);
 					}
 				}
 				break;
@@ -538,9 +500,7 @@ function overState () {
 	recordModule.breakLight(false);
 }
 function stopWatchState() {
-	audioModule.audioEle.muted = true;
-	audioModule.audioEle.load();
-	audioModule.audioEle.play();
+	audioModule.playAudio(0,true,true,true);
 	btnModule.startDisabled(false);
 	btnModule.resetDisabled(false);
 	btnModule.skipDisabled(true);
