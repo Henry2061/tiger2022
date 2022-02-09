@@ -522,6 +522,9 @@ function overState () {
 	recordModule.breakLight(false);
 }
 function stopWatchState() {
+	audioModule.audioEle.muted = true;
+	audioModule.audioEle.load();
+	audioModule.audioEle.play();
 	btnModule.startDisabled(false);
 	btnModule.resetDisabled(false);
 	btnModule.skipDisabled(true);
