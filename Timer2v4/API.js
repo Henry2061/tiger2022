@@ -14,7 +14,7 @@ window
 let loc = document.querySelector('#id026');
 
 let intervalMain = null;
-
+let intervalStopWatch = null;
 let titleModule = {
 	titleEle: document.querySelector('.title'),
 	displayTitleWork: function (workCycle) {
@@ -33,6 +33,13 @@ let inputModule = {
 	breakEle: loc.querySelector('.break'),
 	cycleEle: loc.querySelector('.cycle'),
 	totalEle: loc.querySelector('.total'),
+
+	inputDisabled: function (Boo) {
+		this.workEle.disabled = Boo;
+		this.breakEle.disabled = Boo;
+		this.cycleEle.disabled = Boo;
+		// attention: disabled works for input
+	},
 	getWorkValue: function() {
 		return parseFloat(this.workEle.value)*60;
 	},
@@ -48,6 +55,10 @@ let inputModule = {
 		this.getCycleValue();
 		return temp;
 	},
+	anyZero: function () {
+		return	this.getWorkValue() == 0 || 
+		this.getBreakValue() == 0;
+	},
 	isReady: function () {
 		let temp =
 		this.getWorkValue() >= 0 &&
@@ -56,8 +67,11 @@ let inputModule = {
 			this.getBreakValue()) > 0 &&
 		this.getCycleValue() >=1 &&
 		Number.isInteger(this.getCycleValue());
-		// console.log(temp)
+		console.log(temp)
+		console.log(this.getWorkValue() + 
+			this.getBreakValue())
 		return temp;
+		// console.log(temp)
 	}
 	
 };
@@ -70,15 +84,41 @@ let countdownModule = {
 	progressEle: loc.querySelector('.progress'),
 	cycleNoEle: 
 		loc.querySelector('.cycleNo'),
+	displayMain: function(secs) {
+		//attention. miss arguement of function 
+		this.countdownEle.innerHTML = 
+		`${displaySecs(secs)}`;
+	},
+	countDownMode: function() {
+		this.totalEle.innerHTML =
+			`Countdown  --:--:--`; 
+	},
+	stopWatchMode: function() {
+		this.totalEle.innerHTML = 
+			`Stopwatch`; 
+	},
 	displayProgress: function (ratio) {
 		this.progressEle.style.width = `${ratio*100}%`;
 	},
-	displayTotal: function(secs) {
-		return `Total: ${displaySecs(secs)}`;
+	displayTotal: function() {
+		if(inputModule.isReady()) {
+			this.totalEle.innerHTML = 
+			`Countdown: ${displaySecs(inputModule.getTotalSecs())}`;
+		} 
+		else {
+			this.totalEle.innerHTML = 
+			`Stopwatch / Countdown`;
+
+		} 
 	},
 	displayTimeLeft: function(secs) {
+		if(inputModule.isReady()) {
 		this.totalEle.innerHTML = 
-		`Time Left: ${displaySecs(secs)}`;
+		`Countdown: ${displaySecs(secs)}`;
+		} else {
+			this.totalEle.innerHTML = 
+			`Stopwatch / Countdown`;
+		}
 	},
 	displayCycleNo: function(cycle) {
 		this.cycleNoEle.innerHTML =
@@ -97,7 +137,37 @@ let btnModule = {
 	stop: false,
 	reset: false,
 	skip: false,
-	btnState: 'disable',
+	btnState: 'ready',
+	startDisabled: function (Boo) {
+		this.startBtnEle.disabled = Boo;
+		if(Boo) {
+		this.startBtnEle.style
+			.backgroundColor = 'initial';
+		} else {
+			this.startBtnEle.style
+			.backgroundColor = 'white';
+		}	
+	},
+	resetDisabled: function (Boo) {
+		this.resetBtnEle.disabled = Boo;
+		if(Boo) {
+		this.resetBtnEle.style
+			.backgroundColor = 'initial';
+		} else {
+			this.resetBtnEle.style
+			.backgroundColor = 'white';
+		}	
+	},
+	skipDisabled: function (Boo) {
+		this.skipBtnEle.disabled = Boo;
+		if(Boo) {
+		this.skipBtnEle.style
+			.backgroundColor = 'initial';
+		} else {
+			this.skipBtnEle.style
+			.backgroundColor = 'white';
+		}	
+	},
 	changeStopApparence: function() {
 		this.startBtnEle.innerHTML = 'STOP';
 		// this.startBtnEle.style.backgroundColor =
@@ -190,57 +260,49 @@ function displaySecs (secs) {
 // test(10);
 // states
 function initialState () {
-	btnModule.startBtnEle.disabled = true;
-	btnModule.resetBtnEle.disabled = true;
-	btnModule.skipBtnEle.disabled = true;
-	btnModule.startBtnEle.style.backgroundColor =
-	 'rgb(275, 211, 184)';
-	btnModule.resetBtnEle.style.backgroundColor =
-	 'rgb(275, 211, 184)'; 
-	btnModule.skipBtnEle.style.backgroundColor =
-	 'rgb(275, 211, 184)'; 
+	btnModule.startDisabled(false);
+	btnModule.resetDisabled(true);
+	btnModule.skipDisabled(true);	
 }
 
 
 function inputState () {
 	// console.log(inputModule.isReady());
+	btnModule.startDisabled(false);
+	btnModule.resetDisabled(true);
+	btnModule.skipDisabled(true);	
+	btnModule.btnState = 'ready';
 	if(inputModule.isReady())	{
-		btnModule.btnState = 'ready';
-		countdownModule.totalEle.innerHTML = 
-			countdownModule
-			.displayTotal(inputModule.getTotalSecs());
-		btnModule.startBtnEle.disabled = false;
-		btnModule.resetBtnEle.disabled = false;
-		btnModule.skipBtnEle.disabled = false;
-		btnModule.startBtnEle.style.backgroundColor =
-	 	'white';
-		btnModule.resetBtnEle.style.backgroundColor =
-	  'white'; 
-	  btnModule.skipBtnEle.style.backgroundColor =
-	  'white';
+		
+		countdownModule.displayTotal();
 	} else {
-		countdownModule.totalEle.innerHTML = 
-			`Total: --:--:--`;
-		btnModule.startBtnEle.disabled = true;
-		btnModule.resetBtnEle.disabled = true;
-		btnModule.skipBtnEle.disabled = true;
-		btnModule.startBtnEle.style.backgroundColor =
-	 'rgb(275, 211, 184)';
-		btnModule.resetBtnEle.style.backgroundColor =
-	 'rgb(275, 211, 184)'; 
-	 btnModule.skipBtnEle.style.backgroundColor =
-	 'rgb(275, 211, 184)'; 
+		
+		countdownModule.totalEle.innerHTML =
+			`Countdown: --:--:--`; 
+		setTimeout(function() {
+			if(!inputModule.isReady())	{
+				countdownModule.totalEle.innerHTML =
+					`Stopwatch`;
+			}
+		}, 1000);
+
+			
+
 	}
 
 
 }
 
 function startState () {
-
+	if(inputModule.isReady()) {
+		btnModule.skipDisabled(false);	
+	} else {
+		btnModule.skipDisabled(true);	
+	}
 	
-	inputModule.workEle.disabled = true;
-	inputModule.breakEle.disabled = true;
-	inputModule.cycleEle.disabled = true;
+	btnModule.startDisabled(false);
+	btnModule.resetDisabled(false);
+	inputModule.inputDisabled(true);
 
 	// let display = 
 	// countdownModule.countdownEle.innerHTML;
@@ -273,39 +335,58 @@ function startState () {
 
 		
 
-		if(numKey>0) {
+		if(numKey>=0) {
 			if(btnModule.btnState === 'start'){
 				numKey--;
 				left--;
 
-			// ratio = 1 - (numKey)/(numWork);
-			if (cycle === 'inWork' || 
-				cycle === 'breakInitial') {
-				workTime++;
-				recordModule.workLight(true);
-				recordModule.breakLight(false);
-				ratio = 1 - (numKey)/(numWork);
-				titleModule.displayTitleWork(numKey);
+				// ratio = 1 - (numKey)/(numWork);
+				if (cycle === 'inWork' || 
+					cycle === 'breakInitial') {
+					workTime++;
+					recordModule.workLight(true);
+					recordModule.breakLight(false);
+					ratio = 1 - (numKey)/(numWork);
+					titleModule.displayTitleWork(numKey);
+				}
+				if (cycle ==='inBreak' ||
+					cycle === 'workInitial' ||
+					cycle === 'gameOver') {
+					recordModule.workLight(false);
+					recordModule.breakLight(true);
+					breakTime++;
+					ratio = 1 - (numKey)/(numBreak);
+					titleModule.displayTitleBreak(numKey);
+				}
 			}
-			if (cycle ==='inBreak' ||
-				cycle === 'workInitial' ||
-				cycle === 'gameOver') {
-				recordModule.workLight(false);
-				recordModule.breakLight(true);
-				breakTime++;
-				ratio = 1 - (numKey)/(numBreak);
-				titleModule.displayTitleBreak(numKey);
-			}
-		}
 			
 			if(numKey<0) {numKey = 0;}
 			countdownModule.countdownEle.innerHTML =
 		 		displaySecs(numKey);
 		 	if(numKey==0) {
 		 		endProcess =true;
-		 			audioModule.audioEle.muted = false;
-					audioModule.audioEle.load();
-					audioModule.audioEle.play();
+	 			// console.log(inputModule.getWorkValue())
+	 			
+	 			if(inputModule.anyZero()) {
+	 				if(inputModule.getWorkValue()==0 &&
+	 				cycle ==='inWork') {
+	 					// attention. upper and lower case
+	 					// audioModule.audioEle.muted = true;
+
+	 				} else {
+	 					// console.log(11)
+	 					audioModule.audioEle.muted = false;
+	 					audioModule.audioEle.play();
+	 				}
+	 				
+	 			}	else {
+	 				audioModule.audioEle.muted = false;
+	 				audioModule.audioEle.load();
+	 				audioModule.audioEle.play();
+	 			}
+
+					
+					
 		 		
 		 	} 
 
@@ -384,6 +465,8 @@ function startState () {
 			}
 			default: break;
 		}
+		// console.log(numKey+','+cycle);
+		// console.log(cycle)
 	}, 1000);
 }
 
@@ -400,9 +483,7 @@ function relaunchState () {
 }
 function resetState () {
 	overState();
-	countdownModule.totalEle.innerHTML = 
-		countdownModule
-		.displayTotal(inputModule.getTotalSecs());
+	countdownModule.displayTotal();
 	// attention.
 	countdownModule.displayCycleNo(0);
 	recordModule.workRecordEle.innerHTML =	
@@ -415,27 +496,51 @@ function skipState () {
 	btnModule.skip = true;
 }
 function overState () {
-	clearInterval(intervalMain);
+	
+	
 	inputModule.workEle.disabled = false;
 	inputModule.breakEle.disabled = false;
 	inputModule.cycleEle.disabled = false;
-	btnModule.startBtnEle.disabled = false;
-	btnModule.resetBtnEle.disabled = false;
-	btnModule.skipBtnEle.disabled = false;
-	btnModule.startBtnEle.style.backgroundColor =
- 	'white';
-	btnModule.resetBtnEle.style.backgroundColor =
-  'white'; 
-  btnModule.skipBtnEle.style.backgroundColor =
-  'white'; 
+	btnModule.startDisabled(false);
+	btnModule.resetDisabled(false);
+	btnModule.skipDisabled(true);	
 	btnModule.changeStartApparence();
-	countdownModule.displayTimeLeft(0);
+	countdownModule.displayTotal();
+	if(inputModule.isReady()) {
+		clearInterval(intervalMain);
+		// countdownModule.displayTimeLeft(0);
+	} else {
+		clearInterval(intervalStopWatch);
+		
+	}
+	
 	countdownModule.countdownEle.innerHTML =
 	 	displaySecs(0);
 	countdownModule.displayProgress(0);	
 	btnModule.btnState = 'over';
 	recordModule.workLight(false);
 	recordModule.breakLight(false);
+}
+function stopWatchState() {
+	btnModule.startDisabled(false);
+	btnModule.resetDisabled(false);
+	btnModule.skipDisabled(true);
+	inputModule.inputDisabled(true);
+	countdownModule.stopWatchMode();
+	countdownModule.displayMain(0);
+	let numKey = 0;
+
+	intervalStopWatch = setInterval(function() {
+		// switch () {
+		// 	case: '';
+		// }
+		if(btnModule.btnState === 'start') {
+			numKey++;
+			countdownModule.displayMain(numKey);
+		} 
+		
+
+	}, 1000);
 }
 
 // main
@@ -450,10 +555,22 @@ function() {
 btnModule.startBtnEle.addEventListener('click',
 function() {
 	switch (btnModule.btnState) {
+		// case 'stopWatch': {
+			
+		// 	btnModule.btnState = 'start';
+		// 	btnModule.changeStopApparence();
+		// 	stopWatchState();
+		// 	break;
+		// }
 		case 'ready': {
 			btnModule.btnState = 'start';
 			btnModule.changeStopApparence();
-			startState();
+			if(inputModule.isReady()) {
+				startState();
+			} else {
+				stopWatchState();
+			}
+			
 			break;
 		}
 		case 'start': {
@@ -469,7 +586,11 @@ function() {
 		case 'over': {
 			btnModule.btnState = 'start';
 			btnModule.changeStopApparence();
-			startState();
+			if(inputModule.isReady()) {
+				startState();
+			} else {
+				stopWatchState();
+			}
 			break;
 		}
 		default: break;
