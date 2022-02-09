@@ -104,9 +104,9 @@ body {
 }
 #id026 .mainBoard button {
 	/*layout*/
-	font-size: 23px;
-  margin: 20px 5px;
-  padding: 12px 5px;
+	font-size: 22px;
+  margin: 20px 3px;
+  padding: 10px 4px;
   /*style*/
   color: rgb(239, 75, 23);
   border-radius: 10px;
