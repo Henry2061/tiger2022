@@ -17,20 +17,20 @@ let intervalMain = null;
 let intervalStopWatch = null;
 let titleModule = {
 	titleEle: document.querySelector('.title'),
-	displayTitleWork: function (workCycle) {
+	displayTitleWork: function (cycle, workCycle) {
 		this.titleEle.innerHTML = 
-		`Work: ${displaySecs(workCycle)}`;
+		`W#${cycle}: ${displaySecs(workCycle)} Work`;
 		this.titleEle.display = 'none';
 	},
 	displayTitleBreak: function (breakCycle) {
 		this.titleEle.innerHTML = 
-		`Break: ${displaySecs(breakCycle)}`;
+		`B#${cycle}: ${displaySecs(breakCycle)} Break`;
 	},
-	displayTitleStopW: function (breakCycle) {
+	displayTitleStopW: function (stopWatch) {
 		this.titleEle.innerHTML = 
-		`${displaySecs(breakCycle)}`;
+		`${displaySecs(stopWatch)}`;
 	},
-	displayReset: function (breakCycle) {
+	displayReset: function () {
 		this.titleEle.innerHTML = 
 		`Tiger Timer 2v4`;
 	}
@@ -359,7 +359,7 @@ function startState () {
 					recordModule.workLight(true);
 					recordModule.breakLight(false);
 					ratio = 1 - (numKey)/(numWork);
-					titleModule.displayTitleWork(numKey);
+					titleModule.displayTitleWork(cycleCount, numKey);
 				}
 				if (cycle ==='inBreak' ||
 					cycle === 'workInitial' ||
@@ -368,7 +368,7 @@ function startState () {
 					recordModule.breakLight(true);
 					breakTime++;
 					ratio = 1 - (numKey)/(numBreak);
-					titleModule.displayTitleBreak(numKey);
+					titleModule.displayTitleBreak(cycleCount, numKey);
 				}
 			}
 			
@@ -395,8 +395,7 @@ function startState () {
 		recordModule.breakRecordEle.innerHTML = 
 			recordModule.displayBreakRecord(breakTime);	
 		
-		// titleModule.displayTitleWork(workTime);
-		// titleModule.displayTitleBreak(breakTime);
+
 
 
 		// console.log(numKey)
