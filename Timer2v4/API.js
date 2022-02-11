@@ -404,10 +404,12 @@ function startState () {
 		switch (cycle) {
 			case 'inWork': {
 				if(endProcess || btnModule.skip) {	
+					if(!btnModule.skip) {
+		 				audioModule.playAudio(0,false,true,true);
+		 			}
 					endProcess = false;
 					btnModule.skip = false;
 		 			left = left - numKey;
-					audioModule.playAudio(0,false,true,true);
 					numKey = numBreak;
 					cycle = 'inBreak';
 					
@@ -416,10 +418,10 @@ function startState () {
 			}
 			case 'inBreak': {
 				if(endProcess || btnModule.skip) {
-
-					btnModule.skip = false;
 					if(cycleCount<numCycle) {
-						audioModule.playAudio(1,false,true,true);
+						if(!btnModule.skip) {
+		 					audioModule.playAudio(1,false,false,true);
+		 				}
 		 				left = left - numKey;
 						numKey = numWork;
 						cycle = 'inWork';
@@ -432,6 +434,7 @@ function startState () {
 						cycle = 'gameOver';
 						audioModule.playAudio(2,false,true,true);
 					}
+					btnModule.skip = false;
 				}
 				break;
 			}
