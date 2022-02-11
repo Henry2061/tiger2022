@@ -22,7 +22,7 @@ let titleModule = {
 		`W#${cycle}: ${displaySecs(workCycle)} Work`;
 		this.titleEle.display = 'none';
 	},
-	displayTitleBreak: function (breakCycle) {
+	displayTitleBreak: function (cycle, breakCycle) {
 		this.titleEle.innerHTML = 
 		`B#${cycle}: ${displaySecs(breakCycle)} Break`;
 	},
